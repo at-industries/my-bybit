@@ -1,6 +1,5 @@
 from logging import Logger
 from typing import Optional, Union, Tuple
-
 from httpx import Client, AsyncClient, Response
 
 import inspect
@@ -10,7 +9,6 @@ import hashlib
 import httpx
 
 from .utils import afh, tf_to_interval
-
 from .constants import RECV_WINDOW
 
 
