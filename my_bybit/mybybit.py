@@ -59,7 +59,7 @@ class MyBybit:
             json = response.json()
             if response.status_code == 200:
                 if json['result']:
-                    return 0, json['result']
+                    return 0, True
                 else:
                     return -1, json['retMsg']
             else:
@@ -91,7 +91,7 @@ class MyBybit:
         except Exception as e:
             return -1, Exception(f'{log_process} | {e}')
 
-    async def get_wallet_balance(self, coin: Optional[str] = None) -> Tuple[int, Union[dict, Exception]]:
+    async def get_wallet_balance(self, ticker: Optional[str] = None) -> Tuple[int, Union[dict, Exception]]:
         """
         Gets the balance of the unified trading account for a specific coin or for all coins.
         Endpoint: https://bybit-exchange.github.io/docs/v5/account/wallet-balance
@@ -100,8 +100,8 @@ class MyBybit:
         endpoint = '/v5/account/wallet-balance'
         method = 'GET'
         body = f'accountType=UNIFIED'
-        if coin is not None:
-            body += f'&coin={coin}'
+        if ticker is not None:
+            body += f'&coin={ticker}'
         try:
             response = await self._httpx_request(endpoint=endpoint, method=method, body=body)
             json = response.json()
@@ -183,7 +183,7 @@ class MyBybit:
         except Exception as e:
             return -1, Exception(f'{log_process} | {e}')
 
-    async def get_klines(self, symbol: str, timeframe: str, limit: Optional[str] = 200) -> Tuple[int, Union[dict, Exception]]:
+    async def get_klines(self, symbol: str, timeframe: str, limit: Optional[int] = 200) -> Tuple[int, Union[dict, Exception]]:
         """
         Gets query for historical klines. Charts are returned in groups based on the requested interval.
         Endpoint: https://bybit-exchange.github.io/docs/v5/market/kline
@@ -205,7 +205,7 @@ class MyBybit:
         except Exception as e:
             return -1, Exception(f'{log_process} | {e}')
 
-    async def get_loaded_trades(self, symbol: str, start_time: Optional[int], end_time: Optional[int]) -> Tuple[int, Union[dict, Exception]]:
+    async def get_loaded_trades(self, symbol: str, start_time: Optional[int] = None, end_time: Optional[int] = None) -> Tuple[int, Union[dict, Exception]]:
         """
         Gets query users' execution records.
         Endpoint: https://bybit-exchange.github.io/docs/v5/order/execution
