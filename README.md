@@ -107,9 +107,9 @@ async def example_04():
         limit=200,
     )
     if status == 0:
-        print(f'04 | Price: {result}')
+        print(f'04 | Klines: {result}')
     else:
-        print(f'04 | Error while getting price: {result}')
+        print(f'04 | Error while getting klines: {result}')
 ```
 
 ### Пример использования метода `get_loaded_trades`
@@ -118,9 +118,9 @@ async def example_04():
 async def example_05():
     status, result = await my_bybit.get_loaded_trades(symbol='TONUSDT')
     if status == 0:
-        print(f'05 | Price: {result}')
+        print(f'05 | Trade history: {result}')
     else:
-        print(f'05 | Error while getting price: {result}')
+        print(f'05 | Error while getting trade history: {result}')
         
 asyncio.run(example_05())
 ```
