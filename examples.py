@@ -16,7 +16,7 @@ async def example_00():
     else:
         print(f'00 | Error while getting price: {result}')
 
-asyncio.run(example_00())
+# asyncio.run(example_00())
 
 
 async def example_01():
@@ -27,7 +27,7 @@ async def example_01():
         print(f'01 | Error while getting price: {result}')
 
 
-asyncio.run(example_01())
+# asyncio.run(example_01())
 
 
 async def example_02():
@@ -41,7 +41,7 @@ async def example_02():
     else:
         print(f'02 | Error while making the order: {result}')
 
-asyncio.run(example_02())
+# asyncio.run(example_02())
 
 
 async def example_03():
@@ -51,7 +51,7 @@ async def example_03():
     else:
         print(f'03 | Error while getting price: {result}')
 
-asyncio.run(example_03())
+# asyncio.run(example_03())
 
 
 async def example_04():
@@ -65,7 +65,7 @@ async def example_04():
     else:
         print(f'04 | Error while getting price: {result}')
 
-asyncio.run(example_04())
+# asyncio.run(example_04())
 
 
 async def example_05():
@@ -75,4 +75,4 @@ async def example_05():
     else:
         print(f'05 | Error while getting price: {result}')
 
-asyncio.run(example_05())
+# asyncio.run(example_05())
