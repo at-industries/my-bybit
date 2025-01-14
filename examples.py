@@ -69,7 +69,7 @@ async def example_04():
 
 
 async def example_05():
-    status, result = await my_bybit.get_loaded_trades(symbol='TONUSDT')
+    status, result = await my_bybit.get_trade_history(symbol='TONUSDT')
     if status == 0:
         print(f'05 | Price: {result}')
     else:

@@ -17,7 +17,7 @@ MyBybit - это утилитарная библиотека для работы
 5. `get_wallet_balance` - получение баланса Unified Trading аккаунта.
 6. `get_coins_info` - получение информации об одной или нескольких монетах. 
 7. `get_klines` - получение информации о свечах по выбранному активу.
-8. `get_loaded_trades` - получение информации о проведенных сделках.
+8. `get_trade_history` - получение информации о проведенных сделках.
 
 ### Особенности
 Почти все методы класса возвращают кортежи с целым числом в качестве первого элемента, где:
@@ -54,7 +54,7 @@ async def example_00():
 ```
 
 ### Пример использования метода `get_wallet_balance`
-Метод `get_wallet_balance` проверяет баланс определенного актива на Unified Trading аккаунте, если указать параметр `ticker`. Если параметр не будет указан, метод вернет балансы всех доступных активов.
+Метод `get_wallet_balance` проверяет баланс одного определенного актива на Unified Trading аккаунте, если указать параметр `ticker`. Если параметр не будет указан, метод вернет балансы всех доступных активов.
 ```python
 async def example_01():
     status, result = await my_bybit.get_wallet_balance(ticker='BTC')
@@ -104,7 +104,6 @@ async def example_04():
     status, result = await my_bybit.get_klines(
         symbol='ETHUSDT',
         timeframe='1d',
-        limit=200,
     )
     if status == 0:
         print(f'04 | Klines: {result}')
@@ -112,11 +111,18 @@ async def example_04():
         print(f'04 | Error while getting klines: {result}')
 ```
 
-### Пример использования метода `get_loaded_trades`
-Метод `get_loaded_trades` получает данные о выполненных ордерах пользователя для заданной торговой пары и временного интервала (не больше 7 дней!).
+### Пример использования метода `get_trade_history`
+Метод `get_trade_history` получает данные о выполненных ордерах пользователя для заданной торговой пары и временного интервала.
+- время указывается в миллисекундах: 1735689600000 = 01.01.2025.
+- интервал не должен превышать отрезок в 7 дней.
+- можно получить данные только за последние 2 года.
 ```python
 async def example_05():
-    status, result = await my_bybit.get_loaded_trades(symbol='TONUSDT')
+    status, result = await my_bybit.get_trade_history(
+        symbol='TONUSDT',
+        start_time=1735689600000,
+        end_time=1736294400000,
+    )
     if status == 0:
         print(f'05 | Trade history: {result}')
     else:

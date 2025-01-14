@@ -205,7 +205,7 @@ class MyBybit:
         except Exception as e:
             return -1, Exception(f'{log_process} | {e}')
 
-    async def get_loaded_trades(self, symbol: str, start_time: Optional[int] = None, end_time: Optional[int] = None) -> Tuple[int, Union[dict, Exception]]:
+    async def get_trade_history(self, symbol: str, start_time: Optional[int] = None, end_time: Optional[int] = None) -> Tuple[int, Union[dict, Exception]]:
         """
         Gets query users' execution records.
         Endpoint: https://bybit-exchange.github.io/docs/v5/order/execution
