@@ -18,8 +18,8 @@ class MyBybit:
 
     def __init__(
             self,
-            api_key: Optional[str] = None,
-            secret_key: Optional[str] = None,
+            api_key: str,
+            secret_key: str,
             proxy: Optional[str] = None,
             logger: Optional[Logger] = None,
             asynchrony: Optional[bool] = False,
