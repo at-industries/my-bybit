@@ -8,8 +8,8 @@ import time
 import hashlib
 import httpx
 
-from .utils import afh, tf_to_interval
-from .constants import RECV_WINDOW
+from .utils import afh
+from .constants import RECV_WINDOW, TF_TO_INTERVAL
 
 
 class MyBybit:
@@ -51,10 +51,10 @@ class MyBybit:
         Endpoint: https://api.bybit.com/v5/account/wallet-balance?accountType=UNIFIED&coin=BTC
         """
         log_process = f'{inspect.currentframe().f_code.co_name}'
-        endpoint = '/v5/account/wallet-balance'
-        method = 'GET'
-        body = f'accountType=UNIFIED&coin=BTC'
         try:
+            endpoint = '/v5/account/wallet-balance'
+            method = 'GET'
+            body = f'accountType=UNIFIED&coin=BTC'
             response = await self._httpx_request(endpoint=endpoint, method=method, body=body)
             json = response.json()
             if response.status_code == 200:
@@ -73,12 +73,12 @@ class MyBybit:
         Endpoint: https://api.bybit.com/v5/market/instruments-info
         """
         log_process = f'{inspect.currentframe().f_code.co_name}'
-        endpoint = '/v5/market/instruments-info'
-        method = 'GET'
-        body = 'category=spot'
-        if symbol is not None:
-            body += f'&symbol={symbol}'
         try:
+            endpoint = '/v5/market/instruments-info'
+            method = 'GET'
+            body = 'category=spot'
+            if symbol is not None:
+                body += f'&symbol={symbol}'
             response = await self._httpx_request(endpoint=endpoint, method=method, body=body)
             json = response.json()
             if response.status_code == 200:
@@ -97,12 +97,12 @@ class MyBybit:
         Endpoint: https://bybit-exchange.github.io/docs/v5/account/wallet-balance
         """
         log_process = f'{inspect.currentframe().f_code.co_name}'
-        endpoint = '/v5/account/wallet-balance'
-        method = 'GET'
-        body = f'accountType=UNIFIED'
-        if ticker is not None:
-            body += f'&coin={ticker}'
         try:
+            endpoint = '/v5/account/wallet-balance'
+            method = 'GET'
+            body = f'accountType=UNIFIED'
+            if ticker is not None:
+                body += f'&coin={ticker}'
             response = await self._httpx_request(endpoint=endpoint, method=method, body=body)
             json = response.json()
             if response.status_code == 200:
@@ -121,10 +121,10 @@ class MyBybit:
         Endpoint: https://bybit-exchange.github.io/docs/v5/order/create-order
         """
         log_process = f'{inspect.currentframe().f_code.co_name}'
-        endpoint = '/v5/order/create'
-        method = 'POST'
-        body = '{' + f'"category": "spot", "symbol": "{symbol}", "side": "{side}", "orderType": "Market", "qty": "{str(qty)}"' + '}'
         try:
+            endpoint = '/v5/order/create'
+            method = 'POST'
+            body = '{' + f'"category": "spot", "symbol": "{symbol}", "side": "{side}", "orderType": "Market", "qty": "{str(qty)}"' + '}'
             response = await self._httpx_request(endpoint=endpoint, method=method, body=body)
             json = response.json()
             if response.status_code == 200:
@@ -143,10 +143,10 @@ class MyBybit:
         Endpoint: https://bybit-exchange.github.io/docs/v5/order/order-list
         """
         log_process = f'{inspect.currentframe().f_code.co_name}'
-        endpoint = '/v5/order/history'
-        method = 'GET'
-        body = f'category=spot&orderId={order_id}'
         try:
+            endpoint = '/v5/order/history'
+            method = 'GET'
+            body = f'category=spot&orderId={order_id}'
             response = await self._httpx_request(endpoint=endpoint, method=method, body=body)
             json = response.json()
             if response.status_code == 200:
@@ -165,12 +165,12 @@ class MyBybit:
         Endpoint: https://bybit-exchange.github.io/docs/v5/market/tickers
         """
         log_process = f'{inspect.currentframe().f_code.co_name}'
-        endpoint = '/v5/market/tickers'
-        method = 'GET'
-        body = f'category=spot'
-        if symbol is not None:
-            body += f'&symbol={symbol}'
         try:
+            endpoint = '/v5/market/tickers'
+            method = 'GET'
+            body = f'category=spot'
+            if symbol is not None:
+                body += f'&symbol={symbol}'
             response = await self._httpx_request(endpoint=endpoint, method=method, body=body)
             json = response.json()
             if response.status_code == 200:
@@ -189,10 +189,10 @@ class MyBybit:
         Endpoint: https://bybit-exchange.github.io/docs/v5/market/kline
         """
         log_process = f'{inspect.currentframe().f_code.co_name}'
-        endpoint = '/v5/market/kline'
-        method = 'GET'
         try:
-            body = f'category=spot&symbol={symbol}&interval={tf_to_interval[timeframe]}&limit={limit}'
+            endpoint = '/v5/market/kline'
+            method = 'GET'
+            body = f'category=spot&symbol={symbol}&interval={TF_TO_INTERVAL[timeframe]}&limit={limit}'
             response = await self._httpx_request(endpoint=endpoint, method=method, body=body)
             json = response.json()
             if response.status_code == 200:
@@ -211,14 +211,14 @@ class MyBybit:
         Endpoint: https://bybit-exchange.github.io/docs/v5/order/execution
         """
         log_process = f'{inspect.currentframe().f_code.co_name}'
-        endpoint = '/v5/execution/list'
-        method = 'GET'
-        body = f'category=spot&symbol={symbol}'
-        if start_time is not None:
-            body += f'&startTime={start_time}'
-        if end_time is not None:
-            body += f'&endTime={end_time}'
         try:
+            endpoint = '/v5/execution/list'
+            method = 'GET'
+            body = f'category=spot&symbol={symbol}'
+            if start_time is not None:
+                body += f'&startTime={start_time}'
+            if end_time is not None:
+                body += f'&endTime={end_time}'
             response = await self._httpx_request(endpoint=endpoint, method=method, body=body)
             json = response.json()
             if response.status_code == 200:
